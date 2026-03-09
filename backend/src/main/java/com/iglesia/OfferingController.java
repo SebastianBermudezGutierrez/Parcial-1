@@ -1,9 +1,8 @@
 package com.iglesia;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -28,7 +27,6 @@ public class OfferingController {
         this.churchRepository = churchRepository;
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENT')")
     @PostMapping
     public OfferingResponse create(@RequestBody OfferingRequest request) {
         Church church = requireChurch();
@@ -58,7 +56,6 @@ public class OfferingController {
         return OfferingResponse.from(offering, payment);
     }
 
-    @PreAuthorize("hasRole('ADMIN') or hasRole('CLIENT')")
     @GetMapping
     public List<OfferingResponse> list() {
         Church church = requireChurch();
